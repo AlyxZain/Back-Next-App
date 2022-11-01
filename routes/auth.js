@@ -3,7 +3,6 @@
 const { Router } = require('express');
 const router = Router();
 const UserModel = require('../models/User');
-const ClothingModel = require('../models/Clothing');
 const jwt = require('jsonwebtoken');
 const { SECRET } = process.env;
 const { verifyToken, isAdmin } = require('../middlewares/utils');
