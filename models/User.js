@@ -25,32 +25,6 @@ const UserSchema = new Schema(
       default:
         'https://res.cloudinary.com/dmk0kmt7d/image/upload/v1665969945/blsyqex8mixxmqwhdmmh.png',
     },
-    // country: {
-    //   type: String,
-    //   required: true,
-    // },
-    // boughtitems: {
-    //   type: Array(
-    //     new Schema(
-    //       {
-    //         orderid: String,
-    //         items: Array(
-    //           new Schema(
-    //             {
-    //               name: String,
-    //               image: String,
-    //               price: Number,
-    //               count: Number,
-    //             },
-    //             { _id: false }
-    //           )
-    //         ),
-    //       },
-    //       { _id: false }
-    //     )
-    //   ),
-    //   default: [],
-    // },
     cart: {
       type: Array(
         new Schema(

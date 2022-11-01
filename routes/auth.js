@@ -3,9 +3,31 @@
 const { Router } = require('express');
 const router = Router();
 const UserModel = require('../models/User');
+const ClothingModel = require('../models/Clothing');
 const jwt = require('jsonwebtoken');
 const { SECRET } = process.env;
 const { verifyToken, isAdmin } = require('../middlewares/utils');
+
+/************************************************************************************************
+ *                                                                                              *
+ *                                                                                              *
+ *                                                                                              *
+ *                                          GET                                                 *
+ *                                                                                              *
+ *                                                                                              *
+ *                                                                                              *
+ *                                                                                              *
+ ************************************************************************************************/
+/************************************************************************************************
+ *                                                                                              *
+ *                                                                                              *
+ *                                                                                              *
+ *                                          POST                                                *
+ *                                                                                              *
+ *                                                                                              *
+ *                                                                                              *
+ *                                                                                              *
+ ************************************************************************************************/
 
 router.post('/login', async (req, res) => {
   try {
@@ -33,7 +55,8 @@ router.post('/login', async (req, res) => {
 
 router.post('/register', async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, country, isAdmin, image, form } =
+      req.body;
     const foundUser = await UserModel.findOne({ email });
     if (foundUser)
       return res.json({ message: `Email: ${email} is already in use` });
@@ -41,6 +64,10 @@ router.post('/register', async (req, res) => {
       username,
       email: email.toLocaleLowerCase(),
       password: await UserModel.encyptPassword(password),
+      image: image,
+      form: form,
+      country,
+      isAdmin,
     });
     await newUser.save();
     const token = jwt.sign({ id: newUser._id }, SECRET, {
@@ -51,5 +78,15 @@ router.post('/register', async (req, res) => {
     console.log('GET /', error);
   }
 });
+/************************************************************************************************
+ *                                                                                              *
+ *                                                                                              *
+ *                                                                                              *
+ *                                          PUT                                                 *
+ *                                                                                              *
+ *                                                                                              *
+ *                                                                                              *
+ *                                                                                              *
+ ************************************************************************************************/
 
 module.exports = router;

@@ -1,7 +1,7 @@
 {
-  "name": "next-back",
+  "name": "henrycomerceback",
   "version": "1.0.0",
-  "description": "API for next-back",
+  "description": "API for henrycommerce",
   "main": "index.js",
   "scripts": {
     "build": "node app.js",
