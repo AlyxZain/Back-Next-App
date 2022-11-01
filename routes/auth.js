@@ -31,8 +31,7 @@ const { verifyToken, isAdmin } = require('../middlewares/utils');
 
 router.post('/login', async (req, res) => {
   try {
-    const email = req.body.email;
-    const password = req.body.password;
+    const { email, password } = req.body;
     const resultUN = await UserModel.findOne({ email: email });
     if (!resultUN) return res.status(400).json({ message: 'User not found' });
     const matchPassword = await UserModel.comparePassword(
@@ -55,8 +54,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/register', async (req, res) => {
   try {
-    const { username, email, password, country, isAdmin, image, form } =
-      req.body;
+    const { username, email, password } = req.body;
     const foundUser = await UserModel.findOne({ email });
     if (foundUser)
       return res.json({ message: `Email: ${email} is already in use` });
@@ -64,10 +62,6 @@ router.post('/register', async (req, res) => {
       username,
       email: email.toLocaleLowerCase(),
       password: await UserModel.encyptPassword(password),
-      image: image,
-      form: form,
-      country,
-      isAdmin,
     });
     await newUser.save();
     const token = jwt.sign({ id: newUser._id }, SECRET, {

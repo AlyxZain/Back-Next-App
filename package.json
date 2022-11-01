@@ -4,8 +4,8 @@
   "description": "API for henrycommerce",
   "main": "index.js",
   "scripts": {
-    "build": "node app.js",
-    "start": "node app.js",
+    "build": "node index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Henry e-commerce",
