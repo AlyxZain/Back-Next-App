@@ -29,7 +29,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use('/api', routes);
+app.use('/api', routes);
 
 // Connect to DB
 const mongoose = require('mongoose');
