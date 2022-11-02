@@ -1,7 +1,7 @@
 {
-  "name": "henrycomerceback",
+  "name": "nexttsprueba",
   "version": "1.0.0",
-  "description": "API for henrycommerce",
+  "description": "API for nextTS",
   "main": "index.js",
   "scripts": {
     "build": "node index.js",
