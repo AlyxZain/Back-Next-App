@@ -41,11 +41,9 @@ router.get('/login', async (req, res) => {
       return res.status(200).json({ token });
     } else {
       return res.status(200).json('Wrong Password');
-      // res.status(404).send('Wrong Password');
     }
   } else {
     return res.status(200).json('Email not found');
-    // res.status(404).send('Email not found');
   }
 });
 
@@ -54,7 +52,7 @@ router.post('/register', async (req, res) => {
   const foundUser = await UserModel.findOne({ email });
 
   if (foundUser) {
-    return res.status(404).send('Email is already in use');
+    return res.status(200).json('Email is already in use');
   } else {
     const newUser = new UserModel({
       username,
