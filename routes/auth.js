@@ -44,7 +44,8 @@ router.get('/login', async (req, res) => {
       // res.status(404).send('Wrong Password');
     }
   } else {
-    res.status(404).send('Email not found');
+    return res.status(200).json('Email not found');
+    // res.status(404).send('Email not found');
   }
 });
 
