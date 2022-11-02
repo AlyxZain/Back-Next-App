@@ -12,16 +12,24 @@ const app = express();
 
 app.name = 'API';
 
+var corsOptions = {
+  origin: 'https://pruebasnext.vercel.app/',
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(cookieParser());
 app.use(morgan('dev'));
-app.use(cors());
-app.use(function (req, res, next) {
-  // res.header('Access-Control-Allow-Origin', 'https://pruebasnext.vercel.app/');
-  // res.header('Access-Control-Allow-Credentials', 'true');
-  // res.header('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With');
-  // res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+app.use(cors(corsOptions));
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Content-Type, X-Requested-With, X-Auth-Token, Authorization, Origin, Accept'
+  );
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
 
