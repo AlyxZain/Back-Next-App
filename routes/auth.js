@@ -40,7 +40,8 @@ router.get('/login', async (req, res) => {
       const token = jwt.sign({ id: user._id }, SECRET);
       return res.status(200).json({ token });
     } else {
-      res.status(404).send('Wrong Password');
+      return res.status(200).json('Wrong Password');
+      // res.status(404).send('Wrong Password');
     }
   } else {
     res.status(404).send('Email not found');
