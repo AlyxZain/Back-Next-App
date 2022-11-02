@@ -28,29 +28,6 @@ const { verifyToken, isAdmin } = require('../middlewares/utils');
  *                                                                                              *
  ************************************************************************************************/
 
-// router.post('/login', async (req, res) => {
-//   try {
-//     const { email, password } = req.query;
-//     const resultUN = await UserModel.findOne({ email: email });
-//     if (!resultUN) return res.status(400).json({ message: 'User not found' });
-//     const matchPassword = await UserModel.comparePassword(
-//       password,
-//       resultUN.password
-//     );
-//     if (!matchPassword)
-//       return res.status(401).json({ message: 'Invalid password' });
-//     if (matchPassword) {
-//       const token = jwt.sign({ id: resultUN._id }, SECRET, {
-//         expiresIn: 86400, // 24h
-//       });
-//       return res.status(200).json({ token });
-//     }
-//   } catch (error) {
-//     res.sendStatus(404);
-//     console.log('GET /login', console.log(error));
-//   }
-// });
-
 router.get('/login', async (req, res) => {
   const { email, password } = req.query;
   const user = await UserModel.findOne({ email: email });
@@ -71,23 +48,20 @@ router.get('/login', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-  try {
-    const { username, email, password } = req.body;
-    const foundUser = await UserModel.findOne({ email });
-    if (foundUser)
-      return res.json({ message: `Email: ${email} is already in use` });
+  const { username, email, password } = req.body;
+  const foundUser = await UserModel.findOne({ email });
+
+  if (foundUser) {
+    return res.status(404).send('Email is already in use');
+  } else {
     const newUser = new UserModel({
       username,
       email: email.toLocaleLowerCase(),
       password: await UserModel.encyptPassword(password),
     });
     await newUser.save();
-    const token = jwt.sign({ id: newUser._id }, SECRET, {
-      expiresIn: 86400, // 24h
-    });
-    res.json({ token });
-  } catch (error) {
-    console.log('GET /', error);
+    const token = jwt.sign({ id: newUser._id }, SECRET);
+    return res.status(200).json({ token });
   }
 });
 /************************************************************************************************
