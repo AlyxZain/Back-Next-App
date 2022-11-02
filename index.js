@@ -13,7 +13,7 @@ const app = express();
 app.name = 'API';
 
 var corsOptions = {
-  origin: 'https://pruebasnext.vercel.app/',
+  origin: 'https://pruebasnext.vercel.app/*',
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
