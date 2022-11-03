@@ -23,9 +23,10 @@ router.put('/add', verifyToken, async (req, res) => {
       await UserModel.findOneAndUpdate({ email }, { task: leftoverTask });
       return res.status(200).json(leftoverTask);
     } else {
+      datatime = new Date('<YYYY-mm-ddTHH:MM:ss>');
       const newTask = {
         title,
-        // datatime,
+        datatime,
         creator,
         description,
         type,

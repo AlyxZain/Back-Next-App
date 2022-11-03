@@ -30,7 +30,7 @@ const UserSchema = new Schema(
         new Schema(
           {
             title: String,
-            datatime: new Date('<YYYY-mm-dd>'),
+            datatime: String,
             creator: String,
             description: String,
             type: String,
