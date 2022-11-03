@@ -25,12 +25,16 @@ const UserSchema = new Schema(
       default:
         'https://res.cloudinary.com/dmk0kmt7d/image/upload/v1665969945/blsyqex8mixxmqwhdmmh.png',
     },
-    cart: {
+    task: {
       type: Array(
         new Schema(
           {
-            name: String,
-            count: Number,
+            title: String,
+            datatime: String,
+            creator: String,
+            description: String,
+            type: String,
+            priority: String,
           },
           { _id: false }
         )
