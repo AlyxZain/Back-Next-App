@@ -48,4 +48,13 @@ router.put('/add', verifyToken, async (req, res) => {
   }
 });
 
+router.get('/all', verifyToken, async (req, res) => {
+  const { email } = req.query;
+
+  const foundUser = await UserModel.findOne({ email });
+  const taskOnUser = foundUser.task;
+
+  return res.status(200).json(taskOnUser);
+});
+
 module.exports = router;
